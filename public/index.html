@@ -1,0 +1,58 @@
+<!-- index2.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner with Sockets</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">My Trip</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Location</a></li>
+                <li><a href="badges.html">Contact</a></li>
+                <li><a href="collapsible.html">Images</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h4>Socket.IO Integration</h4>
+        <div class="input-field">
+            <input id="message" type="text" placeholder="Type a message...">
+            <button id="sendBtn" class="btn">Send to Server</button>
+        </div>
+        <h5>Server Response:</h5>
+        <p id="response"></p>
+    </div>
+
+    <footer class="page-footer">
+        <div class="container">
+            <p>📞 Support: +1 (800) TRAVEL-HELP</p>
+        </div>
+    </footer>
+
+    <script>
+        // Connect to the socket server
+        const socket = io();
+
+        $('#sendBtn').click(() => {
+            const message = $('#message').val();
+            socket.emit('clientMessage', message);
+        });
+
+        socket.on('serverMessage', (msg) => {
+            $('#response').text(msg);
+        });
+    </script>
+
+    <script src="js/materialize.min.js"></script>
+</body>
+</html>
